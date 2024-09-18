@@ -8,6 +8,6 @@ const connect = () => {
 }
 
 module.exports = {
-    connect,
     Pokemon,
+    connect,
 }

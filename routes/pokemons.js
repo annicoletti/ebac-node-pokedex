@@ -1,4 +1,4 @@
-const express = required('express');
+const express = require('express');
 const { Pokemon } = require('../models');
 
 const router = express.Router();
