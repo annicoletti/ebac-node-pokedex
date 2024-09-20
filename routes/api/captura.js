@@ -20,6 +20,10 @@ router.post('/captura/:id', (req, res) => {
                     id: pokemonCapturado._id
                 });
             }).catch(e => res.status(500).json({ erro: e }));
+        } else {
+            res.json({
+                capturado: false
+            })
         }
     }).catch(e => res.status(404).json({ erro: 'Pokémon não encontrado' }));
 });
