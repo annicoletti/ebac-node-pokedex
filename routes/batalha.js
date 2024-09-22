@@ -3,15 +3,14 @@ const buscaInfoPokemon = require('../services/busca-pokemon');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const pokemonIdRandomico = Math.round(Math.random() * 1025 + 1);
-    console.log(pokemonIdRandomico);
+    console.log("🚀 ~ router.get ~ pokemonIdRandomico:", pokemonIdRandomico)
 
-    buscaInfoPokemon(pokemonIdRandomico).then(pokemon => {
-        res.render('paginas/batalha/index', {
-            pokemon,
-        });
-    })
+    const infoPokeomon = await buscaInfoPokemon(pokemonIdRandomico);
+    res.render('paginas/batalha/index', {
+        pokemon: infoPokeomon,
+    });
 
 });
 
