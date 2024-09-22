@@ -17,4 +17,18 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+    Pokemon.findOne({ _id: req.params.id }).then(pokemon => {
+        res.render('paginas/pokemons/show', {
+            pokemon,
+            message: req.query.message,
+        })
+    }).catch(e => {
+        res.status(404).render('paginas/erro', {
+            mensagem: "Pokémon não encontrado!!",
+            erro: {},
+        })
+    })
+});
+
 module.exports = router;
