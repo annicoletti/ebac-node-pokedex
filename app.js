@@ -1,3 +1,5 @@
+require('dotenv').config(); //dotenv - leitura das variáveis de ambiente
+
 const express = require('express');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
