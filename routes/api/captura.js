@@ -7,6 +7,7 @@ const router = express.Router();
 router.post('/captura/:id', (req, res) => {
     const randomValue = Math.random();
     buscaInfoPokemon(req.params.id).then(pokemon => {
+        // console.log("🚀 ~ buscaInfoPokemon ~ pokemon:", pokemon)
         const pokemonFoiCapturado = randomValue <= 0.4;
 
         console.log("🚀 ~ buscaInfoPokemon ~ req.params.id:", req.params.id)
@@ -17,7 +18,8 @@ router.post('/captura/:id', (req, res) => {
             Pokemon.create(pokemon).then(pokemonCapturado => {
                 res.json({
                     capturado: true,
-                    id: pokemonCapturado._id
+                    id: pokemonCapturado._id,
+                    jogos: []
                 });
             }).catch(e => res.status(500).json({ erro: e }));
         } else {
