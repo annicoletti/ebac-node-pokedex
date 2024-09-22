@@ -4,7 +4,7 @@ const buscaInfoPokemon = (pokeId) => {
 
     return new Promise(async (resolve, reject) => {
 
-        const url = `https://pokeapi.co/api/v2/pokemon/${pokeId}`;
+        const url = process.env.POKE_API + pokeId;
 
         try {
             const resultado = await axios.get(url);
