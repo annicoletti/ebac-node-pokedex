@@ -2,10 +2,12 @@ const axios = require('axios');
 
 const buscaInfoPokemon = (pokeId) => {
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
 
-        const url = `https://pokeapi.co/api/v2/pokemon/${pokeId}`;
-        axios.get(url).then(resultado => {
+        const url = process.env.POKE_API + pokeId;
+
+        try {
+            const resultado = await axios.get(url);
             const data = resultado.data;
 
             const id = data.id;
@@ -33,8 +35,9 @@ const buscaInfoPokemon = (pokeId) => {
                 estatisticas,
                 jogos,
             })
-        }).catch(e => reject(e))
-
+        } catch (e) {
+            e => reject(e)
+        }
     });
 
 }

@@ -3,32 +3,33 @@ const { Pokemon } = require('../models');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    Pokemon.find().then(pokemons => {
+router.get('/', async (req, res) => {
 
-        pokemons.forEach(pokemon => {
-            const data = new Date(pokemon._id.getTimestamp());
-            pokemon.capturadoEm = `${data.getUTCDate()}/${data.getUTCMonth() + 1}/${data.getUTCFullYear()}`;
-        })
+    const pokemons = await Pokemon.find();
+    pokemons.forEach(pokemon => {
+        const data = new Date(pokemon._id.getTimestamp());
+        pokemon.capturadoEm = `${data.getUTCDate()}/${data.getUTCMonth() + 1}/${data.getUTCFullYear()}`;
+    })
 
-        res.render('paginas/pokemons/index', {
-            pokemons,
-        });
+    res.render('paginas/pokemons/index', {
+        pokemons,
     });
+
 });
 
-router.get('/:id', (req, res) => {
-    Pokemon.findOne({ _id: req.params.id }).then(pokemon => {
+router.get('/:id', async (req, res) => {
+    try {
+        const pokemon = await Pokemon.findOne({ _id: req.params.id });
         res.render('paginas/pokemons/show', {
             pokemon,
             message: req.query.message,
         })
-    }).catch(e => {
+    } catch (e) {
         res.status(404).render('paginas/erro', {
             mensagem: "Pokémon não encontrado!!",
             erro: {},
         })
-    })
+    }
 });
 
 module.exports = router;
