@@ -4,7 +4,7 @@ const { Pokemon } = require('../../models');
 
 const router = express.Router();
 
-router.post('/captura/:id', async (req, res) => {
+router.post('/:id', async (req, res) => {
     const randomValue = Math.random();
 
     try {

@@ -8,6 +8,7 @@ const createError = require('http-errors');
 const pokemonsRouter = require('./routes/pokemons');
 const batalhaRouter = require('./routes/batalha');
 const capturaRouter = require('./routes/api/captura');
+const apiRouter = require('./routes/api');
 
 const { connect } = require('./models');
 const { create } = require('domain');
@@ -26,7 +27,7 @@ app.use('/pokemons', pokemonsRouter);
 app.use('/batalha', batalhaRouter);
 
 //declarando rotas api
-app.use('/api', capturaRouter);
+app.use('/api', apiRouter);
 
 //tratamento de erro, caso não de match em nenhuma, tratamos o 404
 app.use((req, res, next) => {
