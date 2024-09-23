@@ -30,6 +30,14 @@ router.get('/', async (req, res) => {
             options.nome = {
                 $regex: filtros.nomeComecaCom + '.*'
             }
+        } else if (filtros.pesoMinimo) {
+            options.peso = {
+                $gt: filtros.pesoMinimo
+            }
+        } else if (filtros.alturaMinima) {
+            options.altura = {
+                $gt: filtros.alturaMinima
+            }
         }
 
         const pokemons = await Pokemon.find(options);
