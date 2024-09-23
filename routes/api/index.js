@@ -14,6 +14,7 @@ const statusRouter = require('./status');
 const pokemonsRouter = require('./pokemons');
 
 const router = express.Router();
+router.use(express.json());
 
 // declarando as rotas
 router.use('/captura', cors(corsOptions), capturaRouter);
