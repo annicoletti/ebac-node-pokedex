@@ -85,4 +85,26 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
+//Delete
+router.delete('/:id', async (req, res) => {
+    try {
+        const pokemonId = req.params.id;
+        const options = { _id: pokemonId };
+
+        await Pokemon.deleteOne(options);
+        // await Pokemon.delete({ _id: pokemonId });
+        res.json({
+            status: true,
+            pokemon: pokemon
+        })
+
+    } catch (e) {
+        res.json({
+            status: false,
+            message: e
+        })
+    }
+
+});
+
 module.exports = router;
