@@ -11,7 +11,7 @@ const router = express.Router();
 //     res.json({ status: 'ok' });
 // });
 
-router.get('/', middleware, (req, res) => {
+router.get('/', (req, res) => {
     res.json({ status: 'ok' });
 });
 
