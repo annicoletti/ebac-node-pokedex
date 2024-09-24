@@ -30,6 +30,14 @@ router.get('/', async (req, res) => {
             options.nome = {
                 $regex: filtros.nomeComecaCom + '.*'
             }
+        } else if (filtros.pesoMinimo) {
+            options.peso = {
+                $gt: filtros.pesoMinimo
+            }
+        } else if (filtros.alturaMinima) {
+            options.altura = {
+                $gt: filtros.alturaMinima
+            }
         }
 
         const pokemons = await Pokemon.find(options);
@@ -83,6 +91,28 @@ router.patch('/:id', async (req, res) => {
             erro: e
         });
     }
+});
+
+//Delete
+router.delete('/:id', async (req, res) => {
+    try {
+        const pokemonId = req.params.id;
+        const options = { _id: pokemonId };
+
+        await Pokemon.deleteOne(options);
+        // await Pokemon.delete({ _id: pokemonId });
+        res.json({
+            status: true,
+            pokemon: pokemon
+        })
+
+    } catch (e) {
+        res.json({
+            status: false,
+            message: e
+        })
+    }
+
 });
 
 module.exports = router;
