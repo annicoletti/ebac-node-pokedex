@@ -1,0 +1,30 @@
+const { Schema } = require('mongoose');
+
+const Usuario = new Schema({
+    nome: {
+        type: String,
+        required: true,
+        min: 4,
+    },
+    email: {
+        type: String,
+        required: true,
+        min: 4,
+        unique: true,
+        validate: {
+            validator: (valor) => {
+                return valor.match('@');
+            },
+            message: props => `${props.value} não é um email válido`
+        },
+    },
+    senha: {
+        type: String,
+        required: true
+    },
+});
+
+
+Usuario.index({ email: 1 });
+
+module.exports = Usuario;

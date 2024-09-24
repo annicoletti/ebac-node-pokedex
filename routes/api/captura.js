@@ -19,7 +19,12 @@ router.post('/:id', async (req, res) => {
 
             try {
 
-                const pokemonCapturado = await Pokemon.create(pokemon);
+                const pokemonCapturado = await Pokemon.create({
+                    ...pokemon,
+                    ...{
+                        capturadoPor: req.usuario._id,
+                    }
+                });
                 res.json({
                     capturado: true,
                     id: pokemonCapturado._id,
