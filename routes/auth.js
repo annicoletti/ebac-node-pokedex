@@ -10,15 +10,14 @@ router.get('/', (req, res) => {
     });
 });
 
-
 router.get('/logout', checaAutenticado, async (req, res) => {
-    try {
-        await req.logOut(req.user);
-        res.redirect('/auth');
-    } catch (e) {
-        // res.status(500).send(err);
-        next(e);
-    }
+    req.logOut(req.user, (err) =>{
+        if(!err){
+            return res.redirect('/auth');
+        } else {
+            next(err)
+        }
+    });
 });
 
 router.post('/login', checaNaoAutenticado, passport.authenticate('local', {
