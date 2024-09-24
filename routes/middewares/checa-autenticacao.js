@@ -1,5 +1,6 @@
 const checaAutenticado = (req, res, next) => {
     if (req.isAuthenticated()) {
+        console.log('req.user: ', req.user)
         next();
     } else {
         return res.redirect('/auth');

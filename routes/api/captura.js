@@ -22,7 +22,7 @@ router.post('/:id', async (req, res) => {
                 const pokemonCapturado = await Pokemon.create({
                     ...pokemon,
                     ...{
-                        capturadoPor: req.usuario._id,
+                        capturadoPor: req.user._id,
                     }
                 });
                 res.json({
