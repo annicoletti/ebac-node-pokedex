@@ -1,6 +1,8 @@
 require('dotenv').config(); //dotenv - leitura das variáveis de ambiente
 
 const express = require('express');
+const passport = require('passport');
+const session = require('express-session');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const createError = require('http-errors');
@@ -12,7 +14,17 @@ const apiRouter = require('./routes/api');
 
 const { connect } = require('./models');
 const { create } = require('domain');
+
 const app = express();
+
+//configurando autenticação
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(passport.initialize());
+app.use(passport.session());
 
 //configurando ejs
 app.set('views', path.join(__dirname, 'views'));
