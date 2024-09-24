@@ -11,8 +11,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/logout', checaAutenticado, async (req, res) => {
-    req.logOut(req.user, (err) =>{
-        if(!err){
+    req.logOut(req.user, (err) => {
+        if (!err) {
             return res.redirect('/auth');
         } else {
             next(err)
@@ -24,5 +24,15 @@ router.post('/login', checaNaoAutenticado, passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/auth?erroNoLogin=true'
 }));
+
+router.get('/google', checaNaoAutenticado, passport.authenticate('google'));
+
+router.get('/oauth2/redirect/google', checaNaoAutenticado,
+    passport.authenticate('google', {
+        failureRedirect: '/auth',
+        failureMessage: true
+    }), (req, res) => {
+        res.redirect('/');
+    });
 
 module.exports = router;
