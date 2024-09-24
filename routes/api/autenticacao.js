@@ -8,8 +8,12 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {
     try {
-        
-        const usuario = await Usuario.findOne({ email: req.params.email });
+
+        const email = req.body.email;
+        console.log("🚀 ~ router.post ~ email:", email)
+
+        const usuario = await Usuario.findOne({ email: email });
+        console.log("🚀 ~ router.post ~ usuario:", usuario)
 
         const senhaEstaCorreta = await bcrypt.compare(req.body.senha, usuario?.senha || '');
 
