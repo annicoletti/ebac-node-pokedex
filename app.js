@@ -7,13 +7,15 @@ const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const createError = require('http-errors');
 
+const { connect } = require('./models');
+
+require('./routes/auth');
+
 const pokemonsRouter = require('./routes/pokemons');
 const batalhaRouter = require('./routes/batalha');
 const capturaRouter = require('./routes/api/captura');
 const apiRouter = require('./routes/api');
-
-const { connect } = require('./models');
-const { create } = require('domain');
+const autenticacaoRouter = require('./routes/auth');
 
 const app = express();
 
@@ -37,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //declarando rotas
 app.use('/pokemons', pokemonsRouter);
 app.use('/batalha', batalhaRouter);
+app.use('/auth', autenticacaoRouter);
 
 //declarando rotas api
 app.use('/api', apiRouter);
